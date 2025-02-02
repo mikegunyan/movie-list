@@ -1,39 +1,41 @@
 import './App.css';
-import React from 'react';
-import data from './movies.json';
+import React, { useState, useEffect } from 'react';
+// import data from './movies.json';
 import MovieList from './components/MovieList';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movies: data,
-      searchValue: ''
-    };
-  }
+const App = () => {
+  const [movies, setMovies] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
-  search(value) {
-    this.setState({
-      searchValue: value,
-      movies: data.filter((movie) =>
+  const search = (value) => {
+    setSearchValue(value);
+    setMovies(
+      movies.filter((movie) =>
         movie.Title.toLowerCase().includes(value.toLowerCase())
       )
-    });
-  }
-
-  render() {
-    return (
-      <div className="app">
-        <MovieList
-          movies={this.state.movies}
-          searchValue={this.state.searchValue}
-          setSearchValue={(searchValue) => this.setState({ searchValue })}
-          search={(value) => this.search(value)}
-        />
-      </div>
     );
-  }
-}
+  };
+
+  useEffect(() => {
+    fetch('/api')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setMovies(data)}
+      );
+  }, []);
+
+  return (
+    <div className="app">
+      <MovieList
+        movies={movies}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        search={search}
+      />
+    </div>
+  );
+};
 
 export default App;
 
