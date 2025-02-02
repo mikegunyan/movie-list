@@ -39,6 +39,64 @@ body {
   padding-top: 10px;
 }
 
-.movie-info > h3 {
+.movie-info > h2 {
   margin: 0;
+}
+
+.movie-info > div {
+  font-size: 18px;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  background-color: rgba(14, 109, 19);
+  margin: 5% auto;
+  border: 1px solid #888;
+  border-radius: 8px;
+  width: 60%;
+  padding: 20px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-header > h1 {
+  margin: 0;
+}
+
+.modal-close {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.modal-movie {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  height: 420px;
+  width: 98%;
+  margin: 10px 1%;
+}
+
+.modal-movie-img {
+  width: 260px;
+  height: 400px;
+  margin: 10px;
+}
+
+.modal-movie-info {
+  text-align: left;
+  padding-top: 10px;
+  font-size: 18px;
 }

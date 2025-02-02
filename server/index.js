@@ -20,6 +20,17 @@ app.get('/api/search', (req, res) => {
     });
 });
 
+app.get('/api/movie', (req, res) => {
+  axios
+    .get(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${req.query.i}`)
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
 app.listen(5000, function() {
   console.log('Server is running on port 5000');
 });
