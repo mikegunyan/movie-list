@@ -6,7 +6,7 @@ body {
   width: 50%;
   border-radius: 10px;
   margin: 50px auto;
-  background-color: rgba(14, 109, 19, 0.3);
+  background-color: rgba(14, 109, 19, 0.2);
   text-align: center;
 }
 
@@ -14,7 +14,7 @@ body {
   overflow-y: auto;
   height: 70vh;
   width: 100%;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .movie {

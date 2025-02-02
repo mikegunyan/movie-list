@@ -1,9 +1,15 @@
 import React from "react";
+import Search from "./Search";
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, searchValue, setSearchValue, search }) => {
   return (
     <div className="movie-list">
       <h1>Movie List</h1>
+      <Search
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        search={search}
+      />
       <div className="scrollable">
         {movies.map((movie) => (
           <div key={movie.imdbID} className="movie">
