@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Movie from "./Movie";
+import Movie from "../Movie/Movie";
 
 const MovieList = ({ movies, tags, toggleWatch, toggleWatched }) => {
   const [movie, setMovie] = useState(null);

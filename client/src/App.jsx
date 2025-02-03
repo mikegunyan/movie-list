@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import MovieList from './components/MovieList';
-import Search from "./components/Search";
+import MovieList from './components/MovieList/MovieList';
+import Search from "./components/Search/Search";
 
 const App = () => {
   const [list, setList] = useState("watch");
