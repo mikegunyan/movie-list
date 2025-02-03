@@ -21,11 +21,11 @@ const MovieList = ({ movies, tags, toggleWatch, toggleWatched }) => {
             <div>{movie.Year}</div>
             <div>{movie.Type}</div>
             <button className={`movie-tag ${tags.watch.includes(movie.imdbID) ? "tagged" : ""}`}
-              onClick={() => toggleWatch(movie.imdbID)}>
+              onClick={() => toggleWatch(movie)}>
               watch
             </button>
             <button className={`movie-tag ${tags.watched.includes(movie.imdbID) ? "tagged" : ""}`}
-              onClick={() => toggleWatched(movie.imdbID)}>
+              onClick={() => toggleWatched(movie)}>
               watched
             </button>
           </div>

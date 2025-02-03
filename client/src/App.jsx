@@ -20,24 +20,36 @@ const App = () => {
       .catch((error) => console.log(error));
   };
 
-  const toggleWatch = (imdbID) => {
-    if (tags.watch.includes(imdbID)) {
-      setWatch(watch.filter((movie) => movie.imdbID !== imdbID));
-      setTags({ ...tags, watch: tags.watch.filter((id) => id !== imdbID) });
-    } else {
-      setWatch([...watch, movies.find((movie) => movie.imdbID === imdbID)]);
-      setTags({ ...tags, watch: [...tags.watch, imdbID] });
-    }
+  const toggleWatch = (movie) => {
+    fetch('/api/watch', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(movie),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setWatch(data.watch);
+        setTags({ ...tags, watch: data.watch.map((movie) => movie.imdbID) });
+      })
+      .catch((error) => console.log(error));
   };
 
-  const toggleWatched = (imdbID) => {
-    if (tags.watched.includes(imdbID)) {
-      setWatched(watched.filter((movie) => movie.imdbID !== imdbID));
-      setTags({ ...tags, watched: tags.watched.filter((id) => id !== imdbID) });
-    } else {
-      setWatched([...watched, movies.find((movie) => movie.imdbID === imdbID)]);
-      setTags({ ...tags, watched: [...tags.watched, imdbID] });
-    }
+  const toggleWatched = (movie) => {
+    fetch('/api/watched', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(movie),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setWatched(data.watched);
+        setTags({ ...tags, watched: data.watched.map((movie) => movie.imdbID) });
+      })
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
