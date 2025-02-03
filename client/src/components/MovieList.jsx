@@ -1,18 +1,9 @@
 import React, { useState } from "react";
-import Search from "./Search";
 import Movie from "./Movie";
 
-const MovieList = () => {
-  const [movies, setMovies] = useState([]);
+const MovieList = ({ movies, tags, toggleWatch, toggleWatched }) => {
   const [movie, setMovie] = useState(null);
-
-  const search = (value) => {
-    fetch(`/api/search?s=${value}`)
-      .then((response) => response.json())
-      .then((data) => setMovies(data))
-      .catch((error) => console.log(error));
-  };
-
+  
   const openMovie = (imdbID) => {
     fetch(`/api/movie?i=${imdbID}`)
       .then((response) => response.json())
@@ -21,21 +12,25 @@ const MovieList = () => {
   };
 
   return (
-    <div className="movie-list">
-      <h1>Movie List</h1>
-      <Search search={search} />
-      <div className="scrollable">
-        {movies.map((movie) => (
-          <div key={movie.imdbID} className="movie" onClick={() => openMovie(movie.imdbID)}>
-            <img src={movie.Poster} alt={movie.Title} className="movie-img" />
-            <div className="movie-info">
-              <h2>{movie.Title}</h2>
-              <div>{movie.Year}</div>
-              <div>{movie.Type}</div>
-            </div>
+    <div className="scrollable">
+      {movies.map((movie) => (
+        <div key={movie.imdbID} className="movie">
+          <img src={movie.Poster} alt={movie.Title} className="movie-img" onClick={() => openMovie(movie.imdbID)} />
+          <div className="movie-info">
+            <h2 onClick={() => openMovie(movie.imdbID)}>{movie.Title}</h2>
+            <div>{movie.Year}</div>
+            <div>{movie.Type}</div>
+            <button className={`movie-tag ${tags.watch.includes(movie.imdbID) ? "tagged" : ""}`}
+              onClick={() => toggleWatch(movie.imdbID)}>
+              watch
+            </button>
+            <button className={`movie-tag ${tags.watched.includes(movie.imdbID) ? "tagged" : ""}`}
+              onClick={() => toggleWatched(movie.imdbID)}>
+              watched
+            </button>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
       <Movie movie={movie} setMovie={setMovie} />
     </div>
   );

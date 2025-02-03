@@ -12,7 +12,7 @@ body {
 
 .scrollable {
   overflow-y: auto;
-  height: 70vh;
+  height: 74vh;
   width: 100%;
   margin-top: 10px;
 }
@@ -23,7 +23,7 @@ body {
   justify-content: left;
   height: 120px;
   width: 98%;
-  margin: 10px 1%;
+  margin: 13px 1%;
   background-color: rgba(14, 109, 19, 0.7);
   border-radius: 8px;
 }
@@ -32,19 +32,40 @@ body {
   width: 65px;
   height: 100px;
   margin: 10px;
+  cursor: pointer;
 }
 
 .movie-info {
   text-align: left;
-  padding-top: 10px;
+  padding-top: 6px;
 }
 
 .movie-info > h2 {
   margin: 0;
+  cursor: pointer;
+}
+
+.movie-info > h2:hover {
+  text-decoration: underline;
 }
 
 .movie-info > div {
-  font-size: 18px;
+  font-size: 16px;
+}
+
+.movie-tag {
+  margin-top: 6px;
+  margin-right: 6px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+  border-radius: 15px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.movie-tag.tagged {
+  background-color: rgb(6, 48, 8);
+  color: white;
 }
 
 .modal {

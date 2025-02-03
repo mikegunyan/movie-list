@@ -1,17 +1,18 @@
 const express = require('express');
 const axios = require('axios');
-const movies = require('./movies.json');
+const watch = require('./watch.json');
+const watched = require('./watched.json');
 require('dotenv').config();
+
 
 let app = express();
 
-app.get('/api', (req, res) => {
-  res.json(movies);
+app.get('/api/movies', (req, res) => {
+  res.json({ watch, watched });
 });
 
 app.get('/api/search', (req, res) => {
-  axios
-    .get(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&s=${req.query.s}`)
+  axios.get(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&s=${req.query.s}`)
     .then((response) => {
       res.json(response.data.Search);
     })
@@ -21,8 +22,7 @@ app.get('/api/search', (req, res) => {
 });
 
 app.get('/api/movie', (req, res) => {
-  axios
-    .get(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${req.query.i}`)
+  axios.get(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${req.query.i}`)
     .then((response) => {
       res.json(response.data);
     })
