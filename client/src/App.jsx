@@ -4,19 +4,34 @@ import MovieList from './components/MovieList';
 import Search from "./components/Search";
 
 const App = () => {
+  const [list, setList] = useState("watch");
   const [movies, setMovies] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [watch, setWatch] = useState([]);
   const [watched, setWatched] = useState([]);
-  const [tags, setTags] = useState({
-    watch: [],
-    watched: [],
-  });
+  const [tags, setTags] = useState({ watch: [], watched: [] });
+  const [searchValue, setSearchValue] = useState('');
+
+  const changeList = (list) => {
+    setList(list);
+    if (list === "watch") setMovies(watch);
+    if (list === "watched") setMovies(watched);
+  };
 
   const search = (value) => {
-    if (!value) return;
+    if (!value || (value === searchValue && list !== "search")) {
+      setMovies(value ? searchResults : []);
+      setList("search");
+      return;
+    }
+    setList("search");
     fetch(`/api/search?s=${value}`)
       .then((response) => response.json())
-      .then((data) => setMovies(data))
+      .then((data) => {
+        setSearchResults(data);
+        setMovies(data);
+        setSearchValue(value);
+      })
       .catch((error) => console.log(error));
   };
 
@@ -71,7 +86,20 @@ const App = () => {
     <div className="app">
       <div className="movie-list">
         <h1>Movie List</h1>
-        <Search search={search} />
+        <div className="row">
+          <Search search={search} list={list} />
+          <div className="tabs">
+            <button className={`tab ${list === "watch" ? "selected" : ""}`}
+              onClick={() => changeList("watch")}>
+              watch List
+            </button>
+            <button className={`tab ${list === "watched" ? "selected" : ""}`}
+              onClick={() => changeList("watched")}>
+              watched List
+            </button>
+          </div>
+        </div>
+        <h2>{list === "watch" ? "Watch List" : list === "watched" ? "Watched List" : "Search Results"}</h2>
         <MovieList movies={movies} tags={tags} toggleWatch={toggleWatch} toggleWatched={toggleWatched} />
       </div>
     </div>

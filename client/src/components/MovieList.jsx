@@ -11,6 +11,12 @@ const MovieList = ({ movies, tags, toggleWatch, toggleWatched }) => {
       .catch((error) => console.log(error));
   };
 
+  if (!movies.length) return (
+    <div className="scrollable">
+      <h3>No movies found. Search for movies to begin.</h3>
+    </div>
+  );
+
   return (
     <div className="scrollable">
       {movies.map((movie) => (
